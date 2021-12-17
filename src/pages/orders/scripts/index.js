@@ -114,13 +114,24 @@ function renderActive(array) {
     });    
     itemsActive.innerHTML = out;
 }
-renderActive(active);
+
+
 function show () {
-    console.log('render');
-    return renderActive(active);
+    local.forEach(item => {
+        const stop = Date.parse(item.checkout) + 3600000;
+        const start = Date.parse(item.checkout);
+        if(start !== stop) {
+            console.log('rend');
+            renderActive(active);
+        }else {
+            console.log('norend');
+            renderNoActive(active);
+            clearInterval(show);
+        }
+    });
 }
 
-setInterval(show, 1000);
+
 
 function renderNoActive(array) {
     let out = '';
@@ -157,4 +168,7 @@ function renderNoActive(array) {
     });
     itemNoActive.innerHTML = out;
 }
+
+setInterval(show, 100);
+renderActive(active);
 renderNoActive(active);
